@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Testes CRUD</title>
+  </head>
+  <body>
+    <h2>Cadastro Cliente</h2>
+    <input id="nomeCliente" placeholder="Nome" />
+    <input id="emailCliente" placeholder="Email" />
+    <button onclick="cadastrarCliente()">Cadastrar Cliente</button>
+    <button onclick="listarClientes()">Listar Clientes</button>
+    <ul id="listaClientes"></ul>
+
+    <h2>Cadastro Produto</h2>
+    <input id="nomeProduto" placeholder="Nome" />
+    <input id="precoProduto" placeholder="Preço" type="number" />
+    <button onclick="cadastrarProduto()">Cadastrar Produto</button>
+    <button onclick="listarProdutos()">Listar Produtos</button>
+    <ul id="listaProdutos"></ul>
+
+    <script>
+      async function cadastrarCliente() {
+        const nome = document.getElementById("nomeCliente").value;
+        const email = document.getElementById("emailCliente").value;
+        const res = await fetch("/clientes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, email }),
+        });
+        alert("Cliente cadastrado!");
+      }
+
+      async function listarClientes() {
+        const res = await fetch("/clientes");
+        const clientes = await res.json();
+        const lista = document.getElementById("listaClientes");
+        lista.innerHTML = "";
+        clientes.forEach((c) => {
+          const li = document.createElement("li");
+          li.innerText = `${c.id} - ${c.nome} (${c.email})`;
+          lista.appendChild(li);
+        });
+      }
+
+      async function cadastrarProduto() {
+        const nome = document.getElementById("nomeProduto").value;
+        const preco = parseFloat(document.getElementById("precoProduto").value);
+        const res = await fetch("/produtos", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, preco }),
+        });
+        alert("Produto cadastrado!");
+      }
+
+      async function listarProdutos() {
+        const res = await fetch("/produtos");
+        const produtos = await res.json();
+        const lista = document.getElementById("listaProdutos");
+        lista.innerHTML = "";
+        produtos.forEach((p) => {
+          const li = document.createElement("li");
+          li.innerText = `${p.id} - ${p.nome} (R$${p.preco})`;
+          lista.appendChild(li);
+        });
+      }
+    </script>
+  </body>
+</html>
