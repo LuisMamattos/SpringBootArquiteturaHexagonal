@@ -1,58 +1,58 @@
-# Sistema CRUD de Clientes e Produtos
+# CRUD System for Clients and Products
 
-Este projeto é um **sistema de gerenciamento de clientes e produtos**, desenvolvido com **Spring Boot** no backend e **HTML/JavaScript** no frontend. Ele segue princípios de **arquitetura limpa (Clean/Hexagonal)**, separando claramente lógica de negócio, persistência e interface.
+This project is a **clients and products management system**, developed with **Spring Boot** on the backend and **HTML/JavaScript** on the frontend. It follows **clean/hexagonal architecture** principles, clearly separating business logic, persistence, and interface.
 
 ---
 
-## Estrutura do Projeto
+## Project Structure
 
 - **Backend (Spring Boot)**
 
-  - Camada de domínio (`model`) define as entidades principais.
-  - Serviços (`service`) implementam a lógica de negócio.
-  - Adapters (`adapter`) conectam o domínio à persistência (`MongoRepository`) e à interface web.
-  - Ports (`port`) definem contratos de entrada e saída para manter a modularidade.
+  - Domain layer (`model`) defines the main entities.
+  - Services (`service`) implement business logic.
+  - Adapters (`adapter`) connect the domain to persistence (`MongoRepository`) and the web interface.
+  - Ports (`port`) define input and output contracts to maintain modularity.
 
 - **Frontend (HTML/JavaScript)**
-  - Interface simples e responsiva para cadastro, listagem, edição e exclusão de clientes e produtos.
-  - Comunicação com a API através de `fetch` (GET, POST, PUT, DELETE).
-  - Funcionalidade de preenchimento automático para edição de registros.
+  - Simple and responsive interface for creating, listing, editing, and deleting clients and products.
+  - API communication through `fetch` (GET, POST, PUT, DELETE).
+  - Auto-fill functionality for record editing.
 
 ---
 
-## Funcionalidades
+## Features
 
-- CRUD completo de **clientes** e **produtos**
-- Interface web intuitiva, sem frameworks externos
-- Edição inline com preenchimento automático
-- Confirmação antes de exclusão de registros
-- Estrutura modular e escalável, pronta para integração com banco de dados real ou frameworks de frontend mais avançados
+- Full CRUD for **clients** and **products**
+- Intuitive web interface without external frameworks
+- Inline editing with auto-fill
+- Confirmation before record deletion
+- Modular and scalable structure, ready for integration with a real database or advanced frontend frameworks
 
 ---
 
-## Tecnologias Utilizadas
+## Technologies Used
 
 - Java 17
 - Spring Boot
-- HTML, CSS e JavaScript puro
-- MongoDB (opcional, via Spring Data)
+- Pure HTML, CSS, and JavaScript
+- MongoDB (optional, via Spring Data)
 
 ---
 
-## Endpoints da API
+## API Endpoints
 
-### Clientes
+### Clients
 
-- `GET /clientes` – Lista todos os clientes
-- `GET /clientes/{id}` – Busca um cliente pelo ID
-- `POST /clientes` – Cria um novo cliente
-- `PUT /clientes/{id}` – Atualiza um cliente existente
-- `DELETE /clientes/{id}` – Remove um cliente
+- `GET /clientes` – List all clients
+- `GET /clientes/{id}` – Retrieve a client by ID
+- `POST /clientes` – Create a new client
+- `PUT /clientes/{id}` – Update an existing client
+- `DELETE /clientes/{id}` – Delete a client
 
-### Produtos
+### Products
 
-- `GET /produtos` – Lista todos os produtos
-- `GET /produtos/{id}` – Busca um produto pelo ID
-- `POST /produtos` – Cria um novo produto
-- `PUT /produtos/{id}` – Atualiza um produto existente
-- `DELETE /produtos/{id}` – Remove um produto
+- `GET /produtos` – List all products
+- `GET /produtos/{id}` – Retrieve a product by ID
+- `POST /produtos` – Create a new product
+- `PUT /produtos/{id}` – Update an existing product
+- `DELETE /produtos/{id}` – Delete a product
