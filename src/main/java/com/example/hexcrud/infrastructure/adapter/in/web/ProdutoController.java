@@ -2,6 +2,7 @@ package com.example.hexcrud.infrastructure.adapter.in.web;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.hexcrud.application.port.in.ProdutoUseCase;
-import com.example.hexcrud.domain.Produto;
+import com.example.hexcrud.domain.model.Produto;
+import com.example.hexcrud.domain.port.in.ProdutoUseCase;
 
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
+
     private final ProdutoUseCase produtoUseCase;
 
     public ProdutoController(ProdutoUseCase produtoUseCase) {
@@ -23,22 +25,25 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public Produto cadastrar(@RequestBody Produto produto) {
-        return produtoUseCase.cadastrar(produto);
-    }
-
-    @GetMapping
-    public List<Produto> listar() {
-        return produtoUseCase.listar();
+    public ResponseEntity<Produto> criarProduto(@RequestBody Produto produto) {
+        return ResponseEntity.ok(produtoUseCase.criarProduto(produto));
     }
 
     @GetMapping("/{id}")
-    public Produto buscar(@PathVariable Long id) {
-        return produtoUseCase.buscarPorId(id);
+    public ResponseEntity<Produto> buscarProduto(@PathVariable String id) {
+        return produtoUseCase.buscarProduto(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Produto>> listarProdutos() {
+        return ResponseEntity.ok(produtoUseCase.listarProdutos());
     }
 
     @DeleteMapping("/{id}")
-    public void remover(@PathVariable Long id) {
-        produtoUseCase.remover(id);
+    public ResponseEntity<Void> deletarProduto(@PathVariable String id) {
+        produtoUseCase.deletarProduto(id);
+        return ResponseEntity.noContent().build();
     }
 }

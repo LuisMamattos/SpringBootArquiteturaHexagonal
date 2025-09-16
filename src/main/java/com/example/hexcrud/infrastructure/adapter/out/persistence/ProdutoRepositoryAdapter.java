@@ -5,34 +5,27 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import com.example.hexcrud.application.port.out.ProdutoRepositoryPort;
-import com.example.hexcrud.domain.Produto;
+import com.example.hexcrud.domain.model.Produto;
+import com.example.hexcrud.domain.port.out.ProdutoRepositoryPort;
 
 @Component
 public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
-    private final ProdutoJpaRepository repository;
 
-    public ProdutoRepositoryAdapter(ProdutoJpaRepository repository) {
+    private final ProdutoMongoRepository repository;
+
+    public ProdutoRepositoryAdapter(ProdutoMongoRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public Produto save(Produto produto) {
-        return repository.save(new ProdutoJpaEntity(produto)).toDomain();
-    }
+    public Produto salvar(Produto produto) { return repository.save(produto); }
 
     @Override
-    public List<Produto> findAll() {
-        return repository.findAll().stream().map(ProdutoJpaEntity::toDomain).toList();
-    }
+    public Optional<Produto> buscarPorId(String id) { return repository.findById(id); }
 
     @Override
-    public Optional<Produto> findById(Long id) {
-        return repository.findById(id).map(ProdutoJpaEntity::toDomain);
-    }
+    public List<Produto> buscarTodos() { return repository.findAll(); }
 
     @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
-    }
+    public void deletar(String id) { repository.deleteById(id); }
 }

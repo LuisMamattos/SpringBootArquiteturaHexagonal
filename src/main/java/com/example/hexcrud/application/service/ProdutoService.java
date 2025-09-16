@@ -1,36 +1,40 @@
 package com.example.hexcrud.application.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.example.hexcrud.application.port.in.ProdutoUseCase;
-import com.example.hexcrud.application.port.out.ProdutoRepositoryPort;
-import com.example.hexcrud.domain.Produto;
+import org.springframework.stereotype.Service;
 
+import com.example.hexcrud.domain.model.Produto;
+import com.example.hexcrud.domain.port.in.ProdutoUseCase;
+import com.example.hexcrud.domain.port.out.ProdutoRepositoryPort;
+
+@Service
 public class ProdutoService implements ProdutoUseCase {
-    private final ProdutoRepositoryPort produtoRepository;
 
-    public ProdutoService(ProdutoRepositoryPort produtoRepository) {
-        this.produtoRepository = produtoRepository;
+    private final ProdutoRepositoryPort repository;
+
+    public ProdutoService(ProdutoRepositoryPort repository) {
+        this.repository = repository;
     }
 
     @Override
-    public Produto cadastrar(Produto produto) {
-        return produtoRepository.save(produto);
+    public Produto criarProduto(Produto produto) {
+        return repository.salvar(produto);
     }
 
     @Override
-    public List<Produto> listar() {
-        return produtoRepository.findAll();
+    public Optional<Produto> buscarProduto(String id) {
+        return repository.buscarPorId(id);
     }
 
     @Override
-    public Produto buscarPorId(Long id) {
-        return produtoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+    public List<Produto> listarProdutos() {
+        return repository.buscarTodos();
     }
 
     @Override
-    public void remover(Long id) {
-        produtoRepository.deleteById(id);
+    public void deletarProduto(String id) {
+        repository.deletar(id);
     }
 }

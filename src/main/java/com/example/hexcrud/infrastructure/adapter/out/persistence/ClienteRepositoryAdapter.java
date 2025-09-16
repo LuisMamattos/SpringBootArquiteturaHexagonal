@@ -5,34 +5,33 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import com.example.hexcrud.application.port.out.ClienteRepositoryPort;
-import com.example.hexcrud.domain.Cliente;
+import com.example.hexcrud.domain.model.Cliente;
+import com.example.hexcrud.domain.port.out.ClienteRepositoryPort;
 
 @Component
 public class ClienteRepositoryAdapter implements ClienteRepositoryPort {
-    private final ClienteJpaRepository repository;
 
-    public ClienteRepositoryAdapter(ClienteJpaRepository repository) {
+    private final ClienteMongoRepository repository;
+
+    public ClienteRepositoryAdapter(ClienteMongoRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public Cliente save(Cliente cliente) {
-        return repository.save(new ClienteJpaEntity(cliente)).toDomain();
-    }
+    public Cliente salvar(Cliente cliente) { return repository.save(cliente); }
 
     @Override
-    public List<Cliente> findAll() {
-        return repository.findAll().stream().map(ClienteJpaEntity::toDomain).toList();
-    }
+    public Optional<Cliente> buscarPorId(String id) { return repository.findById(id); }
 
     @Override
-    public Optional<Cliente> findById(Long id) {
-        return repository.findById(id).map(ClienteJpaEntity::toDomain);
-    }
+    public List<Cliente> buscarTodos() { return repository.findAll(); }
 
     @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
+    public void deletar(String id) { repository.deleteById(id); }
+
+    public Cliente atualizarCliente(String id, Cliente clienteAtualizado) {
+        clienteAtualizado.setId(id);
+        return repository.save(clienteAtualizado);
     }
+    
 }
