@@ -12,4 +12,5 @@ public interface ProdutoRepositoryPort {
     Optional<Produto> buscarPorId(String id);
     List<Produto> buscarTodos();
     void deletar(String id);
+    Produto atualizarProduto(String id, Produto produtoAtualizado);
 }

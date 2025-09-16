@@ -37,4 +37,8 @@ public class ProdutoService implements ProdutoUseCase {
     public void deletarProduto(String id) {
         repository.deletar(id);
     }
+    @Override
+    public Produto atualizarProduto(String id, Produto produtoAtualizado) {        
+        return repository.atualizarProduto(id, produtoAtualizado);
+    }
 }

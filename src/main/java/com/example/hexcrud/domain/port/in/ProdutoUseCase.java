@@ -10,4 +10,5 @@ public interface ProdutoUseCase {
     Optional<Produto> buscarProduto(String id);
     List<Produto> listarProdutos();
     void deletarProduto(String id);
+    Produto atualizarProduto(String id, Produto produtoAtualizado);
 }

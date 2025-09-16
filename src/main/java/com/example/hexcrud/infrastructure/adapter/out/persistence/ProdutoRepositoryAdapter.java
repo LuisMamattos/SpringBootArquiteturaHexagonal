@@ -28,4 +28,12 @@ public class ProdutoRepositoryAdapter implements ProdutoRepositoryPort {
 
     @Override
     public void deletar(String id) { repository.deleteById(id); }
+
+    @Override
+    public Produto atualizarProduto(String id, Produto produtoAtualizado) {
+        produtoAtualizado.setId(id);
+        return repository.save(produtoAtualizado);
+    }
+
+
 }

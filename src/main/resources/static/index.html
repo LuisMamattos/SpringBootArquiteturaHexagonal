@@ -100,7 +100,10 @@
         font-weight: bold;
         color: #2f3640;
       }
-
+      li .buttons {
+        display: flex;
+        gap: 5px;
+      }
       .delete-btn {
         background: #ff4d4f;
         color: white;
@@ -137,6 +140,7 @@
         <div class="form-group">
           <input id="nomeProduto" placeholder="Nome" />
           <input id="precoProduto" placeholder="Preço" type="number" />
+          <button onclick="atualizarProduto()">Atualizar</button>
           <button onclick="cadastrarProduto()">Cadastrar</button>
           <button onclick="listarProdutos()">Listar</button>
         </div>
@@ -163,8 +167,12 @@
       function preencherCamposCliente(id, nome, email) {
         document.getElementById("nomeCliente").value = nome;
         document.getElementById("emailCliente").value = email;
-        // Guardar id para o update
         document.getElementById("nomeCliente").dataset.id = id;
+      }
+      function preencherCamposProduto(id, nome, preco) {
+        document.getElementById("nomeProduto").value = nome;
+        document.getElementById("precoProduto").value = preco;
+        document.getElementById("nomeProduto").dataset.id = id;
       }
 
       async function listarClientes() {
@@ -175,11 +183,12 @@
         clientes.forEach((c) => {
           const li = document.createElement("li");
           li.innerHTML = `
-            <span>${c.id}</span> - ${c.nome} (${c.email})
-            <button class="update-btn" onclick="preencherCamposCliente('${c.id}', '${c.nome}', '${c.email}')">Edit</button>
-
-            <button class="delete-btn" onclick="deletarCliente('${c.id}')">X</button>
-          `;
+  <span>${c.id} - ${c.nome} (${c.email})</span>
+  <div class="buttons">
+    <button class="update-btn" onclick="preencherCamposCliente('${c.id}', '${c.nome}', '${c.email}')">Edit</button>
+    <button class="delete-btn" onclick="deletarCliente('${c.id}')">X</button>
+  </div>
+`;
           lista.appendChild(li);
         });
       }
@@ -192,7 +201,24 @@
           listarClientes();
         } else alert("Erro ao deletar cliente.");
       }
-
+      async function atualizarCliente() {
+        const id = document.getElementById("nomeCliente").dataset.id;
+        const nome = document.getElementById("nomeCliente").value;
+        const email = document.getElementById("emailCliente").value;
+        if (!id) return alert("Selecione um cliente para atualizar!");
+        const res = await fetch(`/clientes/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, email }),
+        });
+        if (res.ok) {
+          alert("Cliente atualizado!");
+          document.getElementById("nomeCliente").value = "";
+          document.getElementById("emailCliente").value = "";
+          document.getElementById("nomeCliente").removeAttribute("data-id");
+          listarClientes();
+        } else alert("Erro ao atualizar cliente.");
+      }
       // Produtos
       async function cadastrarProduto() {
         const nome = document.getElementById("nomeProduto").value;
@@ -218,11 +244,14 @@
         produtos.forEach((p) => {
           const li = document.createElement("li");
           li.innerHTML = `
-            <span>${p.id}</span> - ${p.nome} (R$${p.preco.toFixed(2)})
-            <button class="delete-btn" onclick="deletarProduto('${
-              p.id
-            }')">X</button>
-          `;
+  <span>${p.id} - ${p.nome} (R$${p.preco.toFixed(2)})</span>
+  <div class="buttons">
+    <button class="update-btn" onclick="preencherCamposProduto('${p.id}', '${
+            p.nome
+          }', '${p.preco}')">Edit</button>
+    <button class="delete-btn" onclick="deletarProduto('${p.id}')">X</button>
+  </div>
+`;
           lista.appendChild(li);
         });
       }
@@ -235,23 +264,30 @@
           listarProdutos();
         } else alert("Erro ao deletar produto.");
       }
-      async function atualizarCliente() {
-        const id = document.getElementById("nomeCliente").dataset.id;
-        const nome = document.getElementById("nomeCliente").value;
-        const email = document.getElementById("emailCliente").value;
-        if (!id) return alert("Selecione um cliente para atualizar!");
-        const res = await fetch(`/clientes/${id}`, {
+      async function atualizarProduto() {
+        const id = document.getElementById("nomeProduto").dataset.id;
+        const nome = document.getElementById("nomeProduto").value;
+        const preco = parseFloat(document.getElementById("precoProduto").value);
+
+        if (!id) return alert("Selecione um produto para atualizar!");
+        if (!nome || isNaN(preco))
+          return alert("Preencha todos os campos corretamente!");
+
+        const res = await fetch(`/produtos/${id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ nome, email }),
+          body: JSON.stringify({ nome, preco }),
         });
+
         if (res.ok) {
-          alert("Cliente atualizado!");
-          document.getElementById("nomeCliente").value = "";
-          document.getElementById("emailCliente").value = "";
-          document.getElementById("nomeCliente").removeAttribute("data-id");
-          listarClientes();
-        } else alert("Erro ao atualizar cliente.");
+          alert("Produto atualizado!");
+          document.getElementById("nomeProduto").value = "";
+          document.getElementById("precoProduto").value = "";
+          document.getElementById("nomeProduto").removeAttribute("data-id");
+          listarProdutos();
+        } else {
+          alert("Erro ao atualizar produto.");
+        }
       }
     </script>
   </body>
