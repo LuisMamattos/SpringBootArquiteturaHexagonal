@@ -2,6 +2,6 @@ package com.example.hexcrud.infrastructure.adapter.out.persistence;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.example.hexcrud.domain.model.Produto;
+import com.example.hexcrud.domain.model.Product;
 
-public interface ProdutoMongoRepository extends MongoRepository<Produto, String> {}
+public interface ProductMongoRepository extends MongoRepository<Product, String> {}
