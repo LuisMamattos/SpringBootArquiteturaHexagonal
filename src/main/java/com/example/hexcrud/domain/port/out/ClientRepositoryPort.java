@@ -12,4 +12,5 @@ public interface ClientRepositoryPort {
     void delete(String id);
     Client updateClient(String id, Client clientUpdated);
     
+     Optional<Client> findByEmail(String email);
 }

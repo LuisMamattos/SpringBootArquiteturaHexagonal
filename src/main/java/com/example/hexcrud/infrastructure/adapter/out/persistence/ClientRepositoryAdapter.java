@@ -28,11 +28,16 @@ public class ClientRepositoryAdapter implements ClientRepositoryPort {
 
     @Override
     public void delete(String id) { repository.deleteById(id); }
-    
+
     @Override
     public Client updateClient(String id, Client clientUpdated) {
         clientUpdated.setId(id);
         return repository.save(clientUpdated);
+    }
+
+    @Override
+    public Optional<Client> findByEmail(String email) {
+        return repository.findByEmail(email);
     }
     
 }

@@ -4,4 +4,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.example.hexcrud.domain.model.Client;
 
-public interface ClientMongoRepository extends MongoRepository<Client, String> {}
+import java.util.Optional;
+
+public interface ClientMongoRepository extends MongoRepository<Client, String> {
+      Optional<Client> findByEmail(String email);
+}
