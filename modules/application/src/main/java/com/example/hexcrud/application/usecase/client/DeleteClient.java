@@ -2,10 +2,11 @@ package com.example.hexcrud.application.usecase.client;
 
 import org.springframework.stereotype.Component;
 
-import com.example.hexcrud.domain.repository.ClientRepositoryPort;
+import com.example.hexcrud.domain.port.in.client.DeleteClientUseCase;
+import com.example.hexcrud.domain.port.out.client.ClientRepositoryPort;
 
 @Component
-public class DeleteClient {
+public class DeleteClient implements DeleteClientUseCase { 
 
     private final ClientRepositoryPort clientRepository;
 
@@ -13,22 +14,13 @@ public class DeleteClient {
         this.clientRepository = clientRepository;
     }
 
-   
-    public record InputPort(String id) {}
-
-    //deletado ou não encontrado
-    public sealed interface OutputPort {
-        record Deleted() implements OutputPort {}
-        record NotFound(String id) implements OutputPort {}
-    }
-
-    public OutputPort execute(InputPort input) {
-        //o cliente deve existir para ser deletado
-        return clientRepository.searchById(input.id())
+    @Override
+    public Output execute(Input input) {
+        return clientRepository.findById(input.id())
                 .map(client -> {
                     clientRepository.delete(input.id());
-                    return (OutputPort) new OutputPort.Deleted();
+                    return (Output) new Output.Deleted();
                 })
-                .orElse(new OutputPort.NotFound(input.id()));
+                .orElse(new Output.NotFound(input.id()));
     }
 }

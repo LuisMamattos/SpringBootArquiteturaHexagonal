@@ -5,10 +5,11 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import com.example.hexcrud.domain.model.Client;
-import com.example.hexcrud.domain.repository.ClientRepositoryPort;
+import com.example.hexcrud.domain.port.in.client.FindClientByIdUseCase;
+import com.example.hexcrud.domain.port.out.client.ClientRepositoryPort;
 
 @Component
-public class FindClientById {
+public class FindClientById implements FindClientByIdUseCase { 
 
     private final ClientRepositoryPort clientRepository;
 
@@ -16,7 +17,8 @@ public class FindClientById {
         this.clientRepository = clientRepository;
     }
 
+    @Override 
     public Optional<Client> execute(String id) {
-        return clientRepository.searchById(id);
+        return clientRepository.findById(id);
     }
 }

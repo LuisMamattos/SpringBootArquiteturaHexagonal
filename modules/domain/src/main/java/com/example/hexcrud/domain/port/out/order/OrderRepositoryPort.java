@@ -1,4 +1,4 @@
-package com.example.hexcrud.domain.repository;
+package com.example.hexcrud.domain.port.out.order;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package com.example.hexcrud.domain.model;
 
 public class Product {
-    
+
     private String id;
     private String name;
     private double price;
@@ -12,11 +12,14 @@ public class Product {
         this.price = price;
     }
 
-    // getters e setters
+    public void updateDetails(String newName, double newPrice) {
+        this.name = newName;
+        this.price = newPrice;
+    }
+
     public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
     public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+
+    public void setId(String id) { this.id = id; }
 }

@@ -1,7 +1,8 @@
 package com.example.hexcrud.infrastructure.persistence;
 
 import com.example.hexcrud.domain.model.Order;
-import com.example.hexcrud.domain.repository.OrderRepositoryPort;
+import com.example.hexcrud.domain.port.out.order.OrderRepositoryPort;
+
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;

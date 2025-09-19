@@ -2,8 +2,9 @@ package com.example.hexcrud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication(scanBasePackages = "com.example.hexcrud")
+@SpringBootApplication(scanBasePackages = "com.example.hexcrud",   exclude = {DataSourceAutoConfiguration.class})
 public class HexcrudApplication {
 
     public static void main(String[] args) {
