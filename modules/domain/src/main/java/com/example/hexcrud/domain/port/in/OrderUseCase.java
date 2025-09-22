@@ -3,7 +3,7 @@ package com.example.hexcrud.domain.port.in;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.hexcrud.domain.model.Order;
+import com.example.hexcrud.domain.model.order.Order;
 
 public interface OrderUseCase {   
     Order createOrder(Order order);
