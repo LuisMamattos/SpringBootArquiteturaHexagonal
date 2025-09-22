@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hexcrud.domain.port.in.order.AddItemToOrderUseCase;
+import com.example.hexcrud.domain.port.in.order.CancelOrderUseCase;
+import com.example.hexcrud.domain.port.in.order.ConfirmOrderUseCase;
 import com.example.hexcrud.domain.port.in.order.CreateOrderUseCase;
 import com.example.hexcrud.domain.port.in.order.FindOrderByIdUseCase;
 import com.example.hexcrud.domain.port.in.order.ListAllOrdersUseCase;
@@ -28,13 +30,18 @@ public class OrderController {
     private final AddItemToOrderUseCase addItemToOrderUseCase;
     private final FindOrderByIdUseCase findOrderByIdUseCase;
     private final ListAllOrdersUseCase listAllOrdersUseCase;
+    private final ConfirmOrderUseCase confirmOrderUseCase;
+    private final CancelOrderUseCase cancelOrderUseCase;   
 
-     public OrderController(CreateOrderUseCase createOrderUseCase, AddItemToOrderUseCase addItemToOrderUseCase, 
-                           FindOrderByIdUseCase findOrderByIdUseCase, ListAllOrdersUseCase listAllOrdersUseCase) { 
+     public OrderController(CreateOrderUseCase createOrderUseCase, AddItemToOrderUseCase addItemToOrderUseCase,
+                           FindOrderByIdUseCase findOrderByIdUseCase, ListAllOrdersUseCase listAllOrdersUseCase,
+                           ConfirmOrderUseCase confirmOrderUseCase, CancelOrderUseCase cancelOrderUseCase) {
         this.createOrderUseCase = createOrderUseCase;
         this.addItemToOrderUseCase = addItemToOrderUseCase;
         this.findOrderByIdUseCase = findOrderByIdUseCase;
-        this.listAllOrdersUseCase = listAllOrdersUseCase; 
+        this.listAllOrdersUseCase = listAllOrdersUseCase;
+        this.confirmOrderUseCase = confirmOrderUseCase; 
+        this.cancelOrderUseCase = cancelOrderUseCase;   
     }
 
     @PostMapping
@@ -64,5 +71,17 @@ public class OrderController {
                 .map(OrderResponse::fromDomain)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(orders);
+    }
+
+    @PostMapping("/{id}/confirm")
+    public ResponseEntity<OrderResponse> confirmOrder(@PathVariable String id) {
+        var updatedOrder = confirmOrderUseCase.execute(id);
+        return ResponseEntity.ok(OrderResponse.fromDomain(updatedOrder));
+    }
+
+    @PostMapping("/{id}/cancel")
+    public ResponseEntity<OrderResponse> cancelOrder(@PathVariable String id) {
+        var updatedOrder = cancelOrderUseCase.execute(id);
+        return ResponseEntity.ok(OrderResponse.fromDomain(updatedOrder));
     }
 }

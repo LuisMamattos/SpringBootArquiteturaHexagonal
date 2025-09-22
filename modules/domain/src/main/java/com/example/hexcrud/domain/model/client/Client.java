@@ -1,4 +1,4 @@
-package com.example.hexcrud.domain.model;
+package com.example.hexcrud.domain.model.client;
 
 public class Client {
 

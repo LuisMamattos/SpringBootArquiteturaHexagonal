@@ -1,6 +1,7 @@
-package com.example.hexcrud.infrastructure.persistence;
+package com.example.hexcrud.infrastructure.persistence.order;
 
-import com.example.hexcrud.domain.model.Order;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.example.hexcrud.domain.model.order.Order;
 
 public interface OrderMongoRepository extends MongoRepository<Order, String> {}

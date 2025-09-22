@@ -3,7 +3,7 @@ package com.example.hexcrud.domain.port.out.product;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.hexcrud.domain.model.Product;
+import com.example.hexcrud.domain.model.product.Product;
 
 public interface ProductRepositoryPort {
     Product save(Product product);

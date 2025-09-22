@@ -1,6 +1,6 @@
 package com.example.hexcrud.domain.port.in.product;
 
-import com.example.hexcrud.domain.model.Product;
+import com.example.hexcrud.domain.model.product.Product;
 
 public interface UpdateProductUseCase {
     record Input(String id, String newName, double newPrice) {}

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.example.hexcrud.domain.model.Order;
+import com.example.hexcrud.domain.model.order.Order;
 import com.example.hexcrud.domain.port.in.order.ListAllOrdersUseCase;
 import com.example.hexcrud.domain.port.out.order.OrderRepositoryPort;
 

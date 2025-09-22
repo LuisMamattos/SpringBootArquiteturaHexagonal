@@ -2,7 +2,7 @@ package com.example.hexcrud.application.usecase.product;
 
 import org.springframework.stereotype.Component;
 
-import com.example.hexcrud.domain.model.Product;
+import com.example.hexcrud.domain.model.product.Product;
 import com.example.hexcrud.domain.port.in.product.CreateProductUseCase;
 import com.example.hexcrud.domain.port.out.product.ProductRepositoryPort;
 

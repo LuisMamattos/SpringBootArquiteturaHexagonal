@@ -2,9 +2,9 @@ package com.example.hexcrud.application.usecase.client;
 
 import java.util.Optional;
 
-import org.springframework.stereotype.Component; 
+import org.springframework.stereotype.Component;
 
-import com.example.hexcrud.domain.model.Client;
+import com.example.hexcrud.domain.model.client.Client;
 import com.example.hexcrud.domain.port.in.client.UpdateClientUseCase;
 import com.example.hexcrud.domain.port.out.client.ClientRepositoryPort;
 

@@ -1,6 +1,6 @@
 package com.example.hexcrud.infrastructure.web.dto.client;
 
-import com.example.hexcrud.domain.model.Client;
+import com.example.hexcrud.domain.model.client.Client;
 
 public record ClientResponse(String id, String name, String email) {
     // Método de fábrica para facilitar a conversão do modelo de domínio para o DTO

@@ -1,4 +1,4 @@
-package com.example.hexcrud.domain.model;
+package com.example.hexcrud.domain.model.order;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import com.example.hexcrud.domain.model.product.Product;
 
 
 public class Order {

@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import com.example.hexcrud.domain.model.Client;
+import com.example.hexcrud.domain.model.client.Client;
 import com.example.hexcrud.domain.port.in.client.FindClientByIdUseCase;
 import com.example.hexcrud.domain.port.out.client.ClientRepositoryPort;
 

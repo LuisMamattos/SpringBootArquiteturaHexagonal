@@ -1,7 +1,9 @@
-package com.example.hexcrud.domain.model;
+package com.example.hexcrud.domain.model.order;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
+import com.example.hexcrud.domain.model.product.Product;
 
 
 public class OrderItem {

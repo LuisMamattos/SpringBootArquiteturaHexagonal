@@ -442,13 +442,12 @@
       }
 
       async function renderOrderList() {
-        const response = await fetch("/orders"); // This endpoint needs to exist
+        const response = await fetch("/orders");
         if (!response.ok) return;
         const orders = await response.json();
         const listElement = document.getElementById("orderList");
         listElement.innerHTML = "";
 
-        // Populate product dropdown for reuse
         let productOptions = allProducts
           .map(
             (p) =>
@@ -475,11 +474,25 @@
           }
           itemsHtml += "</ul>";
 
+          // --- LÓGICA DOS BOTÕES DE AÇÃO ---
+          let actionButtons = "";
+          if (order.status === "PENDING") {
+            actionButtons = `
+                  <div class="buttons">
+                    <button class="update-btn" style="background-color: #2ed573;" onclick="confirmOrder('${order.id}')">Confirm</button>
+                    <button class="delete-btn" onclick="cancelOrder('${order.id}')">Cancel</button>
+                  </div>
+                `;
+          }
+
           const listItem = document.createElement("li");
           listItem.innerHTML = `
               <div class="entity-header">
                 <span>Order #${order.id.substring(0, 8)}...</span>
-                <span>Status: <strong>${order.status}</strong></span>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span>Status: <strong>${order.status}</strong></span>
+                    ${actionButtons}
+                </div>
               </div>
               <div class="order-details">
                 <strong>Client:</strong> ${clientName}<br>
@@ -544,6 +557,55 @@
           alert("Item added successfully!");
           renderOrderList(); // Refresh the list to show the new item
         } catch (error) {
+          alert(`Error: ${error.message}`);
+        }
+      }
+      async function confirmOrder(orderId) {
+        if (
+          !confirm(
+            "Are you sure you want to confirm this order? Items can no longer be added."
+          )
+        )
+          return;
+        try {
+          const response = await fetch(`/orders/${orderId}/confirm`, {
+            method: "POST",
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(
+              errorText || `Request failed with status ${response.status}`
+            );
+          }
+
+          alert("Order confirmed successfully!");
+          renderOrderList();
+        } catch (error) {
+          console.error("Confirm Order Error:", error);
+          // O alert agora mostrará a mensagem de erro detalhada do backend
+          alert(`Error: ${error.message}`);
+        }
+      }
+
+      async function cancelOrder(orderId) {
+        if (!confirm("Are you sure you want to cancel this order?")) return;
+        try {
+          const response = await fetch(`/orders/${orderId}/cancel`, {
+            method: "POST",
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(
+              errorText || `Request failed with status ${response.status}`
+            );
+          }
+
+          alert("Order cancelled successfully!");
+          renderOrderList();
+        } catch (error) {
+          console.error("Cancel Order Error:", error);
           alert(`Error: ${error.message}`);
         }
       }

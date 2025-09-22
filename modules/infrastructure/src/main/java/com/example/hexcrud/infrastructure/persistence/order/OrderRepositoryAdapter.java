@@ -1,11 +1,12 @@
-package com.example.hexcrud.infrastructure.persistence;
+package com.example.hexcrud.infrastructure.persistence.order;
 
-import com.example.hexcrud.domain.model.Order;
-import com.example.hexcrud.domain.port.out.order.OrderRepositoryPort;
-
-import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Component;
+
+import com.example.hexcrud.domain.model.order.Order;
+import com.example.hexcrud.domain.port.out.order.OrderRepositoryPort;
 
 @Component
 public class OrderRepositoryAdapter implements OrderRepositoryPort {

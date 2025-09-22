@@ -1,7 +1,7 @@
 package com.example.hexcrud.application.usecase.order;
 
-import com.example.hexcrud.domain.model.Order;
-import com.example.hexcrud.domain.model.Product;
+import com.example.hexcrud.domain.model.order.Order;
+import com.example.hexcrud.domain.model.product.Product;
 import com.example.hexcrud.domain.port.in.order.AddItemToOrderUseCase;
 import com.example.hexcrud.domain.port.out.order.OrderRepositoryPort;
 import com.example.hexcrud.domain.port.out.product.ProductRepositoryPort;

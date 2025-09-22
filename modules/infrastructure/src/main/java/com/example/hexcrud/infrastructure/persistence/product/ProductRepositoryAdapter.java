@@ -1,11 +1,11 @@
-package com.example.hexcrud.infrastructure.persistence;
+package com.example.hexcrud.infrastructure.persistence.product;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import com.example.hexcrud.domain.model.Product;
+import com.example.hexcrud.domain.model.product.Product;
 import com.example.hexcrud.domain.port.out.product.ProductRepositoryPort;
 
 @Component
